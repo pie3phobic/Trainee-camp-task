@@ -20,7 +20,9 @@ const CustomDropdown = ({ selectedValue, onChange }) => {
             className={styles.optionImage}
           />
         ) : null}
-        {selectedValue || "Select a city"}
+        <p className="text-gray-500">
+          {selectedValue || "Please select a city"}
+        </p>
       </div>
       {isOpen && (
         <div className={styles.options}>

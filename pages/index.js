@@ -9,8 +9,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { addTrip } from "../redux/actions/tripActions";
 import CustomDropdown from "../components/CustomDropdown";
 import citiesData from "../cities.json";
+import TripCard from "../components/TripCard";
+import CustomModal from "../components/CustomModal";
 
-export default function Home({ picData }) {
+export default function Home() {
   //console.log(picData);
   const startDate = new Date("6.08.2023");
   const formattedStartDate = startDate.toLocaleDateString("en-GB"); // '2023-08-06'
@@ -74,8 +76,6 @@ export default function Home({ picData }) {
   }, [selectedTrip]);
 
   const fetchWeatherForecast = async (selectedTrip) => {
-    // Make the API call to fetch the weather forecast for the selected trip's city
-    //const apiKey = "D93Z7QEYUCR3CR9NE2LCAZ56B";
     const response = await fetch(
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${selectedTrip.city}/${selectedTrip.startDate}/${selectedTrip.endDate}?unitGroup=metric&include=days&key=${process.env.api_key}&contentType=json`
     );
@@ -87,7 +87,6 @@ export default function Home({ picData }) {
     }
   };
   const fetchWeatherToday = async (selectedTrip) => {
-    //const apiKey = "D93Z7QEYUCR3CR9NE2LCAZ56B";
     const response = await fetch(
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${selectedTrip.city}/today?unitGroup=metric&include=days&key=${process.env.api_key}&contentType=json`
     );
@@ -111,6 +110,17 @@ export default function Home({ picData }) {
 
   console.log(weatherForecast);
   console.log(weatherToday);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Open the modal
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className="">
       <Head>
@@ -120,74 +130,71 @@ export default function Home({ picData }) {
       </Head>
       <Header />
       <main>
-        <div>
-          {/* Render the list of trips */}
-          {trips.trips.map((trip) => (
-            <div
-              className="flex flex-col"
-              key={trip.city}
-              onClick={() => handleTripClick(trip)}
-            >
-              <p>{trip.city}</p>
-              <img src={trip.imageUrl} className="w-[100px]" />
-            </div>
-          ))}
-        </div>
-        <CustomDropdown
-          selectedValue={newTrip.city}
-          onChange={(city) => setNewTrip({ ...newTrip, city })}
-        />
-        <input
-          type="date"
-          value={newTrip.startDate}
-          placeholder="Start Date"
-          min={minDate} // Set the minimum date to today
-          max={maxDate} // Set the maximum date to the next 15 days
-          onChange={(e) =>
-            setNewTrip({ ...newTrip, startDate: e.target.value })
-          }
-        />
-        <input
-          type="date"
-          value={newTrip.endDate}
-          onChange={(e) => setNewTrip({ ...newTrip, endDate: e.target.value })}
-          placeholder="End Date"
-          min={minDate}
-          max={maxDate}
-        />
-        <button
-          className="bg-blue-500 font-semibold rounded-2xl px-8 py-2"
-          onClick={() => handleAddTrip(newTrip)}
-        >
-          Add trip!
-        </button>
-        {selectedTrip && weatherForecast && (
-          <div>
-            <h2>Weather Forecast for {selectedTrip.city}</h2>
-            {weatherForecast.days.map((day) => (
-              <div key={day.datetime}>
-                {day.datetime}: {day.conditions}
+        <div className="mx-10 flex justify-between gap-10">
+          {/* Trip list */}
+          <div className="w-[600px] flex-1 bg-blue-500">
+            <div className="">
+              <p className="font-2xl pb-10 pt-4 font-semibold">
+                Weather Forecast
+              </p>
+              <div className="flex">
+                {trips.trips.map((trip) => (
+                  <div key={trip.city} onClick={() => handleTripClick(trip)}>
+                    <TripCard {...trip} />
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        )}
-        {selectedTrip && weatherToday && (
+          {/* Modal */}
           <div>
-            <h2>Weather today in {selectedTrip.city}</h2>
-            <div>{weatherToday.days[0].description}</div>
+            {selectedTrip && weatherForecast && (
+              <div>
+                <h2>Weather Forecast for {selectedTrip.city}</h2>
+                {weatherForecast.days.map((day) => (
+                  <div key={day.datetime}>
+                    {day.datetime}: {day.conditions}
+                  </div>
+                ))}
+              </div>
+            )}
+            {selectedTrip && weatherToday && (
+              <div>
+                <h2>Weather today in {selectedTrip.city}</h2>
+                <div>{weatherToday.days[0].description}</div>
+              </div>
+            )}
           </div>
-        )}
+          {/* Render the custom modal */}
+          <CustomModal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            newTrip={newTrip}
+            onChange={setNewTrip}
+            onAddTrip={handleAddTrip}
+            minDate={minDate}
+            maxDate={maxDate}
+          />
+
+          {/* Button to open the modal */}
+          <button
+            className="bg-blue-500 font-semibold rounded-2xl px-8 py-2"
+            onClick={openModal}
+          >
+            Add Trip
+          </button>
+        </div>
       </main>
     </div>
   );
 }
-export async function getStaticProps() {
-  const picData = await fetch("https://www.jsonkeeper.com/b/NTUM").then((res) =>
-    res.json()
-  );
-  return {
-    props: {
-      picData,
-    },
-  };
-}
+// export async function getStaticProps() {
+//   const picData = await fetch("https://www.jsonkeeper.com/b/NTUM").then((res) =>
+//     res.json()
+//   );
+//   return {
+//     props: {
+//       picData,
+//     },
+//   };
+// }
