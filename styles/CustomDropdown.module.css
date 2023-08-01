@@ -1,0 +1,42 @@
+/* CustomDropdown.module.css */
+.dropdown {
+  position: relative;
+  width: 200px;
+}
+
+.selectedOption {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.optionImage {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.option:hover {
+  background-color: #f2f2f2;
+}
