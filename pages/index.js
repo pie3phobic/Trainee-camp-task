@@ -125,6 +125,71 @@ export default function Home() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  //Countdown timer stuff
+  const [countdown, setCountdown] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  const calculateCountdown = (startDate) => {
+    const targetDate = new Date(startDate);
+    const currentDate = new Date();
+    const timeDifference = targetDate - currentDate;
+
+    if (timeDifference <= 0) {
+      setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      return;
+    }
+
+    const oneDay = 24 * 60 * 60 * 1000;
+    const oneHour = 60 * 60 * 1000;
+    const oneMinute = 60 * 1000;
+
+    const days = Math.floor(timeDifference / oneDay);
+    const hours = Math.floor((timeDifference % oneDay) / oneHour);
+    const minutes = Math.floor((timeDifference % oneHour) / oneMinute);
+    const seconds = Math.floor((timeDifference % oneMinute) / 1000);
+
+    setCountdown({ days, hours, minutes, seconds });
+  };
+
+  useEffect(() => {
+    if (selectedTrip) {
+      calculateCountdown(selectedTrip.startDate);
+
+      // Update the countdown every second
+      const interval = setInterval(() => {
+        calculateCountdown(selectedTrip.startDate);
+      }, 1000);
+
+      // Clean up the interval on component unmount
+      return () => clearInterval(interval);
+    }
+  }, [selectedTrip]);
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const [imageWeather, setImageWeather] = useState("");
+  useEffect(() => {
+    // Conditionally set the imageWeather state based on day.icon
+    if (weatherToday?.days[0].icon.includes("cloudy")) {
+      setImageWeather("cloudy");
+    } else if (weatherToday?.days[0].icon.includes("clear")) {
+      setImageWeather("clear");
+    } else if (weatherToday?.days[0].icon.includes("rain")) {
+      setImageWeather("rain");
+    } else if (weatherToday?.days[0].icon.includes("overcast")) {
+      setImageWeather("overcast");
+    }
+  }, [weatherToday?.days[0].icon]); // Only run when day.icon changes
   return (
     <div className="">
       <Head>
@@ -186,12 +251,6 @@ export default function Home() {
                     </div>
                   </div>
                 )}
-                {selectedTrip && weatherToday && (
-                  <div>
-                    <h2>Weather today in {selectedTrip.city}</h2>
-                    <div>{weatherToday.days[0].description}</div>
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -204,19 +263,54 @@ export default function Home() {
             minDate={minDate}
             maxDate={maxDate}
           />
-          <div className="bg-blue-900 w-[400px] h-screen"></div>
+          <div className="bg-blue-900 w-[450px] h-screen flex flex-col justify-center items-center">
+            {/* {selectedTrip && weatherToday && (
+              <div>
+                <h2>Weather today in {selectedTrip.city}</h2>
+                <div>{weatherToday.days[0].description}</div>
+              </div>
+            )} */}
+            {selectedTrip && weatherToday && (
+              <div className="flex flex-col items-center">
+                <h2 className="text-white font-semibold text-3xl">
+                  {weekdays[new Date(weatherToday.days[0].datetime).getDay()]}
+                </h2>
+                <div className="flex my-4">
+                  <img
+                    src={`${imageWeather}-with-no-bg.png`}
+                    className="w-[60px]"
+                  />
+                  <p className="text-5xl text-white">
+                    {weatherToday.days[0].temp}
+                  </p>
+                  <p className="text-lg text-white">°C</p>
+                </div>
+                <p className="text-white text-2xl font-light">
+                  {weatherToday.address}
+                </p>
+                <div className="mt-24 flex gap-5 justify-center items-center uppercase text-white">
+                  <div className="flex flex-col justify-center items-center">
+                    <p className="font-black text-2xl">{countdown.days}</p>
+                    <p className="text-sm font-light">days</p>
+                  </div>
+                  <div className="flex flex-col justify-center items-center">
+                    <p className="font-black text-2xl">{countdown.hours}</p>
+                    <p className="text-sm font-light">hours</p>
+                  </div>
+                  <div className="flex flex-col justify-center items-center">
+                    <p className="font-black text-2xl">{countdown.minutes}</p>
+                    <p className="text-sm font-light">minutes</p>
+                  </div>
+                  <div className="flex flex-col justify-center items-center">
+                    <p className="font-black text-2xl">{countdown.seconds}</p>
+                    <p className="text-sm font-light">seconds</p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </main>
     </div>
   );
 }
-// export async function getStaticProps() {
-//   const picData = await fetch("https://www.jsonkeeper.com/b/NTUM").then((res) =>
-//     res.json()
-//   );
-//   return {
-//     props: {
-//       picData,
-//     },
-//   };
-// }
