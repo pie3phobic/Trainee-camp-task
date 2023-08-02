@@ -11,6 +11,7 @@ import CustomDropdown from "../components/CustomDropdown";
 import citiesData from "../cities.json";
 import TripCard from "../components/TripCard";
 import CustomModal from "../components/CustomModal";
+import { PlusIcon } from "@heroicons/react/outline";
 
 export default function Home() {
   //console.log(picData);
@@ -130,19 +131,28 @@ export default function Home() {
       </Head>
       <Header />
       <main>
-        <div className="mx-10 flex justify-between gap-10">
+        <div className="mx-10 flex justify-between">
           {/* Trip list */}
-          <div className="w-[600px] flex-1 bg-blue-500">
+          <div className="w-[600px] flex-1 bg-blue-300">
             <div className="">
               <p className="font-2xl pb-10 pt-4 font-semibold">
                 Weather Forecast
               </p>
-              <div className="flex">
-                {trips.trips.map((trip) => (
-                  <div key={trip.city} onClick={() => handleTripClick(trip)}>
-                    <TripCard {...trip} />
-                  </div>
-                ))}
+              <div className="flex gap-5">
+                <div className="overflow-x-scroll flex">
+                  {trips.trips.map((trip) => (
+                    <div key={trip.city} onClick={() => handleTripClick(trip)}>
+                      <TripCard {...trip} />
+                    </div>
+                  ))}
+                </div>
+                <div
+                  className="bg-gray-300 w-[200px] flex flex-col items-center justify-center cursor-pointer"
+                  onClick={openModal}
+                >
+                  <PlusIcon className="h-6" />
+                  <p className="font-semibold rounded-2xl">Add Trip</p>
+                </div>
               </div>
             </div>
           </div>
@@ -177,12 +187,13 @@ export default function Home() {
           />
 
           {/* Button to open the modal */}
-          <button
+          {/* <button
             className="bg-blue-500 font-semibold rounded-2xl px-8 py-2"
             onClick={openModal}
           >
             Add Trip
-          </button>
+          </button> */}
+          <div className="bg-blue-900 w-[400px]"></div>
         </div>
       </main>
     </div>

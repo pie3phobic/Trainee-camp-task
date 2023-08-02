@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import citiesData from "../cities.json";
 import styles from "../styles/CustomDropdown.module.css";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 
 const CustomDropdown = ({ selectedValue, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isRotated, setIsRotated] = useState(false);
+  const handleClick = () => {
+    setIsRotated(!isRotated);
+  };
 
   const handleSelect = (city) => {
     setIsOpen(false);
@@ -11,7 +16,7 @@ const CustomDropdown = ({ selectedValue, onChange }) => {
   };
 
   return (
-    <div className={styles.dropdown}>
+    <div className={styles.dropdown} onClick={handleClick}>
       <div className={styles.selectedOption} onClick={() => setIsOpen(!isOpen)}>
         {selectedValue ? (
           <img
@@ -20,9 +25,16 @@ const CustomDropdown = ({ selectedValue, onChange }) => {
             className={styles.optionImage}
           />
         ) : null}
-        <p className="text-gray-500">
-          {selectedValue || "Please select a city"}
-        </p>
+        <div className="flex flex-1 justify-between">
+          <p className="text-gray-500">
+            {selectedValue || "Please select a city"}
+          </p>
+          <ChevronDownIcon
+            className={`h-6 text-gray-500 transition-transform duration-200 ease-out transform ${
+              isRotated ? "rotate-180" : "rotate-0"
+            }`}
+          />
+        </div>
       </div>
       {isOpen && (
         <div className={styles.options}>
