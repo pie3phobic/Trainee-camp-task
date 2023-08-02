@@ -4,3 +4,10 @@ export type TripProps = {
   endDate: string;
   imageUrl: string;
 };
+export type ForecastProps = {
+  datetime: string;
+  conditions: string;
+  tempmax: number;
+  tempmin: number;
+  icon: string;
+};

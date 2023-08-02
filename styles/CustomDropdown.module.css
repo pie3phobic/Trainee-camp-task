@@ -23,11 +23,13 @@
   top: 100%;
   left: 0;
   width: 100%;
+  height: 300px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-top: none;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 }
 
 .option {

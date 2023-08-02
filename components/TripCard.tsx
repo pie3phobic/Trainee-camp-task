@@ -5,9 +5,16 @@ import { TripProps } from "../types";
 const TripCard: React.FC<TripProps> = (props) => {
   return (
     <div>
-      <div className="bg-gray-200 rounded-3xl flex flex-col justify-center items-center w-[150px] h-[200px]">
-        <img src={props.imageUrl} className="w-[100px] rounded-3xl" />
-        <p className="font-semibold">{props.city}</p>
+      <div className="flex flex-col justify-center w-[200px]">
+        <img src={props.imageUrl} className="h-[170px]" />
+        <div className="px-4 border border-b-gray-200 border-r-gray-200 border-l-gray-200 pb-4">
+          <p className="font-semibold text-sm pt-4 pb-2">{props.city}</p>
+          <p className="text-xs">
+            {props.startDate.split("-").reverse().join(".")}
+            {" - "}
+            {props.endDate.split("-").reverse().join(".")}
+          </p>
+        </div>
       </div>
     </div>
   );
