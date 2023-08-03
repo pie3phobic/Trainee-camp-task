@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
 import { FireIcon } from "@heroicons/react/solid";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addTrip } from "../redux/actions/tripActions";
@@ -11,7 +11,11 @@ import CustomDropdown from "../components/CustomDropdown";
 import citiesData from "../cities.json";
 import TripCard from "../components/TripCard";
 import CustomModal from "../components/CustomModal";
-import { PlusIcon } from "@heroicons/react/outline";
+import {
+  PlusIcon,
+  ArrowNarrowRightIcon,
+  ArrowNarrowLeftIcon,
+} from "@heroicons/react/outline";
 import {
   MenuIcon,
   UserCircleIcon,
@@ -19,6 +23,7 @@ import {
   SearchIcon,
 } from "@heroicons/react/solid";
 import ForecastCard from "../components/ForecastCard";
+import useSmoothScroll from "../hooks/useSmoothScroll"; // Import the custom hook
 
 export default function Home() {
   const [searchInput, setSearchInput] = useState("");
@@ -46,7 +51,6 @@ export default function Home() {
       imageUrl: selectedCityData ? selectedCityData.img : "", // Set the image URL based on selected city
     };
     // Dispatch the action with the current newTrip values
-    //dispatch(addTrip(newTrip));
     dispatch(addTrip(trip));
     setNewTrip({
       city: "",
@@ -193,6 +197,10 @@ export default function Home() {
       setImageWeather("overcast");
     }
   }, [weatherToday?.days[0].icon]); // Only run when day.icon changes
+  //Scrolling stuff
+  const tripsContainerRef = useRef(null);
+  const weatherContainerRef = useRef(null);
+  const { scrollLeft, scrollRight } = useSmoothScroll(); // Use the hook
   return (
     <div className="">
       <Head>
@@ -222,12 +230,11 @@ export default function Home() {
                 />
               </div>
               <div className="flex gap-5 flex-1">
-                <div className="overflow-x-scroll space-x-8 scrollbar-hide flex">
-                  {/* {trips.trips.map((trip) => (
-                    <div key={trip.city} onClick={() => handleTripClick(trip)}>
-                      <TripCard {...trip} />
-                    </div>
-                  ))} */}
+                <div
+                  id="tripContainer"
+                  ref={tripsContainerRef}
+                  className="overflow-x-scroll space-x-8 scrollbar-hide flex transition-transform duration-300 ease-linear"
+                >
                   {filteredTrips.map((trip) => (
                     <div key={trip.city} onClick={() => handleTripClick(trip)}>
                       <TripCard {...trip} />
@@ -242,13 +249,26 @@ export default function Home() {
                   <p className="font-semibold rounded-2xl">Add Trip</p>
                 </div>
               </div>
-              <div className="pt-6">
+              <div className="flex gap-5 justify-center mr-48 pt-4 text-gray-500">
+                <ArrowNarrowLeftIcon
+                  className="h-6 hover:scale-110 hover:bg-slate-200 rounded-md px-2 transition-transform ease-in-out duration-200"
+                  onClick={() => scrollLeft(tripsContainerRef)}
+                />
+                <ArrowNarrowRightIcon
+                  className="h-6 hover:scale-110 hover:bg-slate-200 rounded-md px-2 transition-transform ease-in-out duration-200"
+                  onClick={() => scrollRight(tripsContainerRef)}
+                />
+              </div>
+              <div className="pt-2">
                 {selectedTrip && weatherForecast && (
                   <div>
                     <h2 className="font-semibold text-gray-800 text-xl">
                       Week
                     </h2>
-                    <div className="flex gap-10 overflow-x-scroll scrollbar-hide pt-10">
+                    <div
+                      ref={weatherContainerRef}
+                      className="flex gap-10 overflow-x-scroll scrollbar-hide pt-6"
+                    >
                       {weatherForecast.days.map((day) => (
                         // <div key={day.datetime}>
                         //   <p>{day.datetime}</p>
@@ -256,6 +276,16 @@ export default function Home() {
                         // </div>
                         <ForecastCard {...day} />
                       ))}
+                    </div>
+                    <div className="flex gap-5 justify-center pt-4 text-gray-500">
+                      <ArrowNarrowLeftIcon
+                        className="h-6 hover:scale-110 hover:bg-slate-200 rounded-md px-2 transition-transform ease-in-out duration-200"
+                        onClick={() => scrollLeft(weatherContainerRef)}
+                      />
+                      <ArrowNarrowRightIcon
+                        className="h-6 hover:scale-110 hover:bg-slate-200 rounded-md px-2 transition-transform ease-in-out duration-200"
+                        onClick={() => scrollRight(weatherContainerRef)}
+                      />
                     </div>
                   </div>
                 )}
@@ -271,13 +301,7 @@ export default function Home() {
             minDate={minDate}
             maxDate={maxDate}
           />
-          <div className="bg-blue-900 w-[450px] h-screen flex flex-col justify-center items-center">
-            {/* {selectedTrip && weatherToday && (
-              <div>
-                <h2>Weather today in {selectedTrip.city}</h2>
-                <div>{weatherToday.days[0].description}</div>
-              </div>
-            )} */}
+          <div className="bg-blue-900 w-[450px] h-[110vh] flex flex-col justify-center items-center">
             {selectedTrip && weatherToday && (
               <div className="flex flex-col items-center">
                 <h2 className="text-white font-semibold text-3xl">
