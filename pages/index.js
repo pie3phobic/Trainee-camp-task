@@ -125,6 +125,9 @@ export default function Home() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  const filteredTrips = trips.trips.filter((trip) =>
+    trip.city.toLowerCase().includes(searchInput.toLowerCase())
+  );
   //Countdown timer stuff
   const [countdown, setCountdown] = useState({
     days: 0,
@@ -220,7 +223,12 @@ export default function Home() {
               </div>
               <div className="flex gap-5 flex-1">
                 <div className="overflow-x-scroll space-x-8 scrollbar-hide flex">
-                  {trips.trips.map((trip) => (
+                  {/* {trips.trips.map((trip) => (
+                    <div key={trip.city} onClick={() => handleTripClick(trip)}>
+                      <TripCard {...trip} />
+                    </div>
+                  ))} */}
+                  {filteredTrips.map((trip) => (
                     <div key={trip.city} onClick={() => handleTripClick(trip)}>
                       <TripCard {...trip} />
                     </div>
