@@ -2,7 +2,8 @@ import React from "react";
 import CustomDropdown from "./CustomDropdown";
 import styles from "../styles/Home.module.css";
 import { XIcon } from "@heroicons/react/solid";
-const CustomModal = ({
+import { ModalProps } from "../types";
+const CustomModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   newTrip,

@@ -2,15 +2,22 @@ import React, { useState } from "react";
 import citiesData from "../cities.json";
 import styles from "../styles/CustomDropdown.module.css";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+interface CustomDropdownProps {
+  selectedValue: string;
+  onChange: (city: string) => void;
+}
 
-const CustomDropdown = ({ selectedValue, onChange }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isRotated, setIsRotated] = useState(false);
+const CustomDropdown: React.FC<CustomDropdownProps> = ({
+  selectedValue,
+  onChange,
+}) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isRotated, setIsRotated] = useState<boolean>(false);
   const handleClick = () => {
     setIsRotated(!isRotated);
   };
 
-  const handleSelect = (city) => {
+  const handleSelect = (city: string) => {
     setIsOpen(false);
     onChange(city);
   };

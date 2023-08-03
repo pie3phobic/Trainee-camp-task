@@ -11,3 +11,12 @@ export type ForecastProps = {
   tempmin: number;
   icon: string;
 };
+export type ModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  newTrip: TripProps;
+  onChange: React.Dispatch<React.SetStateAction<TripProps>>;
+  onAddTrip: () => void;
+  minDate: string | number;
+  maxDate: string | number;
+};
