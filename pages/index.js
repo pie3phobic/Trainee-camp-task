@@ -24,8 +24,10 @@ import {
 } from "@heroicons/react/solid";
 import ForecastCard from "../components/ForecastCard";
 import useSmoothScroll from "../hooks/useSmoothScroll"; // Import the custom hook
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Home() {
+  const { data: session } = useSession();
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
   const trips = useSelector((state) => state.trips);
@@ -214,8 +216,29 @@ export default function Home() {
           {/* Trip list */}
           <div className="w-[600px] flex-1">
             <div className="">
-              <div className="text-2xl text-gray-800 pt-4 font-semibold">
-                Weather <span className="font-bold">Forecast</span>
+              <div className="flex justify-between pt-4">
+                <div className="text-2xl text-gray-800 font-semibold">
+                  Weather <span className="font-bold">Forecast</span>
+                </div>
+                {session ? (
+                  <div className="mr-8 flex flex-col items-end font-semibold text-gray-800">
+                    <p className="text-xl">Welcome, {session.user.name}</p>
+                    <p
+                      className="font-base text-sm underline text-gray-500"
+                      onClick={() => signOut()}
+                    >
+                      Logout
+                    </p>
+                  </div>
+                ) : (
+                  <div
+                    className="font-semibold rounded-md text-sm bg-gray-200  text-gray-800 px-4 py-2 mr-8 flex gap-4"
+                    onClick={() => signIn()}
+                  >
+                    <img src="google-icon.png" width="20px" />
+                    <p>Login with Google</p>
+                  </div>
+                )}
               </div>
               <div className="flex bg-gray-200 rounded-md h-[40px] w-[200px] justify-center gap-2 my-12">
                 <div className="pt-1 pl-6">

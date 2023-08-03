@@ -4,4 +4,3 @@ export const addTrip = (trip) => {
     payload: trip,
   };
 };
-// Add other action creators for removing, updating trips if needed

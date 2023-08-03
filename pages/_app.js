@@ -4,6 +4,7 @@ import Router from "next/router";
 import React from "react";
 import { Provider } from "react-redux";
 import store from "../redux/store";
+import { SessionProvider } from "next-auth/react";
 
 const progress = new ProgressBar({
   size: 4,
@@ -16,11 +17,13 @@ Router.events.on("routeChangeStart", progress.start);
 Router.events.on("routeChangeComplete", progress.finish);
 Router.events.on("routeChangeError", progress.finish);
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, session }) {
   return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
+    <SessionProvider session={session}>
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
+    </SessionProvider>
   );
 }
 

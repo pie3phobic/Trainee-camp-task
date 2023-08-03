@@ -1,6 +1,5 @@
 import React from "react";
 import { TripProps } from "../types";
-// const InfoCard: React.FC<CourseProps> = (props) => {
 
 const TripCard: React.FC<TripProps> = (props) => {
   return (
