@@ -16,15 +16,13 @@ import {
   ArrowNarrowRightIcon,
   ArrowNarrowLeftIcon,
 } from "@heroicons/react/outline";
-import {
-  MenuIcon,
-  UserCircleIcon,
-  UsersIcon,
-  SearchIcon,
-} from "@heroicons/react/solid";
+import { SearchIcon } from "@heroicons/react/solid";
 import ForecastCard from "../components/ForecastCard";
 import useSmoothScroll from "../hooks/useSmoothScroll"; // Import the custom hook
 import { signIn, signOut, useSession } from "next-auth/react";
+import { fetchWeatherForecast } from "./api/fetchWeatherForecast";
+import { fetchWeatherToday } from "./api/fetchWeatherToday";
+import CountdownTimer from "../components/CountdownTimer";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -82,103 +80,38 @@ export default function Home() {
 
   useEffect(() => {
     if (selectedTrip) {
-      fetchWeatherForecast(selectedTrip);
+      fetchWeatherForecast(
+        selectedTrip.city,
+        selectedTrip.startDate,
+        selectedTrip.endDate
+      )
+        .then(setWeatherForecast)
+        .catch((error) => console.error(error));
+      fetchWeatherToday(selectedTrip.city).then(setWeatherToday);
     }
   }, [selectedTrip]);
 
-  const fetchWeatherForecast = async (selectedTrip) => {
-    const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${selectedTrip.city}/${selectedTrip.startDate}/${selectedTrip.endDate}?unitGroup=metric&include=days&key=${process.env.api_key}&contentType=json`
-    );
-    if (response.ok) {
-      const data = await response.json();
-      setWeatherForecast(data);
-    } else {
-      console.error("Failed to fetch weather forecast");
-    }
-  };
-  const fetchWeatherToday = async (selectedTrip) => {
-    const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${selectedTrip.city}/today?unitGroup=metric&include=days&key=${process.env.api_key}&contentType=json`
-    );
-    if (response.ok) {
-      const data = await response.json();
-      setWeatherToday(data);
-    } else {
-      console.error("Failed to fetch todays weather");
-    }
-  };
   const handleTripClick = (trip) => {
-    // Format the start date and end date before fetching the weather forecast
     const formattedStartDate = formatDate(trip.startDate);
     const formattedEndDate = formatDate(trip.endDate);
-    // Fetch the weather forecast with the formatted dates
     fetchWeatherForecast(trip.city, formattedStartDate, formattedEndDate);
     fetchWeatherToday(trip);
-    // Set the selected trip
     setSelectedTrip(trip);
   };
 
   console.log(weatherForecast);
   console.log(weatherToday);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Open the modal
   const openModal = () => {
     setIsModalOpen(true);
   };
-
-  // Close the modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
   const filteredTrips = trips.trips.filter((trip) =>
     trip.city.toLowerCase().includes(searchInput.toLowerCase())
   );
-  //Countdown timer stuff
-  const [countdown, setCountdown] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-
-  const calculateCountdown = (startDate) => {
-    const targetDate = new Date(startDate);
-    const currentDate = new Date();
-    console.log(currentDate.getHours());
-    const timeDifference = targetDate - currentDate;
-
-    if (timeDifference <= 0) {
-      setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-      return;
-    }
-
-    const oneDay = 24 * 60 * 60 * 1000;
-    const oneHour = 60 * 60 * 1000;
-    const oneMinute = 60 * 1000;
-
-    const days = Math.floor(timeDifference / oneDay);
-    const hours = Math.floor((timeDifference % oneDay) / oneHour);
-    const minutes = Math.floor((timeDifference % oneHour) / oneMinute);
-    const seconds = Math.floor((timeDifference % oneMinute) / 1000);
-
-    setCountdown({ days, hours, minutes, seconds });
-  };
-
-  useEffect(() => {
-    if (selectedTrip) {
-      calculateCountdown(selectedTrip.startDate);
-
-      // Update the countdown every second
-      const interval = setInterval(() => {
-        calculateCountdown(selectedTrip.startDate);
-      }, 1000);
-
-      // Clean up the interval on component unmount
-      return () => clearInterval(interval);
-    }
-  }, [selectedTrip]);
+  //Countdown timer stuff - exported
   const weekdays = [
     "Sunday",
     "Monday",
@@ -222,7 +155,7 @@ export default function Home() {
                   Weather <span className="font-bold">Forecast</span>
                 </div>
                 {session ? (
-                  <div className="mr-8 flex flex-col items-end font-semibold text-gray-800">
+                  <div className="mr-4 flex flex-col items-end font-semibold text-gray-800">
                     <p className="text-xl">Welcome, {session.user.name}</p>
                     <p
                       className="font-base hover:cursor-pointer text-sm underline text-gray-500"
@@ -350,24 +283,7 @@ export default function Home() {
                 <p className="text-white text-2xl font-light">
                   {weatherToday.address}
                 </p>
-                <div className="mt-24 flex gap-5 justify-center items-center uppercase text-white">
-                  <div className="flex flex-col justify-center items-center">
-                    <p className="font-black text-2xl">{countdown.days}</p>
-                    <p className="text-sm font-light">days</p>
-                  </div>
-                  <div className="flex flex-col justify-center items-center">
-                    <p className="font-black text-2xl">{countdown.hours}</p>
-                    <p className="text-sm font-light">hours</p>
-                  </div>
-                  <div className="flex flex-col justify-center items-center">
-                    <p className="font-black text-2xl">{countdown.minutes}</p>
-                    <p className="text-sm font-light">minutes</p>
-                  </div>
-                  <div className="flex flex-col justify-center items-center">
-                    <p className="font-black text-2xl">{countdown.seconds}</p>
-                    <p className="text-sm font-light">seconds</p>
-                  </div>
-                </div>
+                <CountdownTimer startDate={selectedTrip.startDate} />
               </div>
             )}
           </div>
