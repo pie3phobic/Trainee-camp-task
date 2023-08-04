@@ -4,7 +4,7 @@ import { TripProps } from "../types";
 const TripCard: React.FC<TripProps> = (props) => {
   return (
     <div>
-      <div className="flex flex-col justify-center w-[200px]">
+      <div className="flex flex-col justify-center w-[200px] hover: cursor-pointer hover:scale-105 transition duration-200 ease-in-out m-2">
         <img src={props.imageUrl} className="h-[170px]" />
         <div className="px-4 border border-b-gray-200 border-r-gray-200 border-l-gray-200 pb-4">
           <p className="font-semibold text-sm pt-4 pb-2">{props.city}</p>

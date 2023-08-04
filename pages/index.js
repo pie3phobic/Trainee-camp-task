@@ -62,6 +62,7 @@ export default function Home() {
   };
 
   console.log(trips);
+  const timeNow = new Date().getHours();
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -145,6 +146,7 @@ export default function Home() {
   const calculateCountdown = (startDate) => {
     const targetDate = new Date(startDate);
     const currentDate = new Date();
+    console.log(currentDate.getHours());
     const timeDifference = targetDate - currentDate;
 
     if (timeDifference <= 0) {
@@ -188,7 +190,6 @@ export default function Home() {
   ];
   const [imageWeather, setImageWeather] = useState("");
   useEffect(() => {
-    // Conditionally set the imageWeather state based on day.icon
     if (weatherToday?.days[0].icon.includes("cloudy")) {
       setImageWeather("cloudy");
     } else if (weatherToday?.days[0].icon.includes("clear")) {
@@ -212,19 +213,19 @@ export default function Home() {
       </Head>
       {/* <Header /> */}
       <main>
-        <div className="ml-10 flex justify-between">
+        <div className="ml-10 flex gap-7 justify-between">
           {/* Trip list */}
           <div className="w-[600px] flex-1">
             <div className="">
               <div className="flex justify-between pt-4">
-                <div className="text-2xl text-gray-800 font-semibold">
+                <div className="text-2xl text-gray-800 font-semibold hover:cursor-pointer">
                   Weather <span className="font-bold">Forecast</span>
                 </div>
                 {session ? (
                   <div className="mr-8 flex flex-col items-end font-semibold text-gray-800">
                     <p className="text-xl">Welcome, {session.user.name}</p>
                     <p
-                      className="font-base text-sm underline text-gray-500"
+                      className="font-base hover:cursor-pointer text-sm underline text-gray-500"
                       onClick={() => signOut()}
                     >
                       Logout
@@ -232,7 +233,7 @@ export default function Home() {
                   </div>
                 ) : (
                   <div
-                    className="font-semibold rounded-md text-sm bg-gray-200  text-gray-800 px-4 py-2 mr-8 flex gap-4"
+                    className="font-semibold rounded-md text-sm bg-gray-200  text-gray-800 px-4 py-2 mr-8 flex gap-4 hover: cursor-pointer"
                     onClick={() => signIn()}
                   >
                     <img src="google-icon.png" width="20px" />
@@ -265,7 +266,7 @@ export default function Home() {
                   ))}
                 </div>
                 <div
-                  className="bg-gray-300 min-w-[190px] h-[170px] flex flex-col items-center justify-center cursor-pointer"
+                  className="bg-gray-300 min-w-[190px] mt-2 h-[170px] flex flex-col items-center justify-center cursor-pointer"
                   onClick={openModal}
                 >
                   <PlusIcon className="h-6" />
@@ -324,7 +325,13 @@ export default function Home() {
             minDate={minDate}
             maxDate={maxDate}
           />
-          <div className="bg-blue-900 w-[450px] h-[110vh] flex flex-col justify-center items-center">
+          <div
+            className={`${
+              timeNow > 7 && timeNow < 19
+                ? "bg-day-pattern"
+                : "bg-night-pattern"
+            } bg-cover w-[450px] h-[110vh] flex flex-col justify-center items-center`}
+          >
             {selectedTrip && weatherToday && (
               <div className="flex flex-col items-center">
                 <h2 className="text-white font-semibold text-3xl">

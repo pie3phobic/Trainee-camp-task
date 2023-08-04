@@ -14,6 +14,12 @@ module.exports = {
         "lime-accent": "#9FC86A",
         "yellow-accent": "#FBD34D",
       },
+      backgroundImage: {
+        "night-pattern":
+          "url('https://cdn.dribbble.com/users/925716/screenshots/3333720/attachments/722375/night.png?resize=800x600&vertical=center')",
+        "day-pattern":
+          "url('https://cdn.dribbble.com/users/925716/screenshots/3333720/attachments/722376/after_noon.png?resize=800x600&vertical=center')",
+      },
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],

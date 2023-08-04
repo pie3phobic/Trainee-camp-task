@@ -45,20 +45,22 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
       </div>
       {isOpen && (
         <div className={styles.options}>
-          {citiesData.map((cityData) => (
-            <div
-              key={cityData.city}
-              className={styles.option}
-              onClick={() => handleSelect(cityData.city)}
-            >
-              <img
-                src={cityData.img}
-                alt={cityData.city}
-                className={styles.optionImage}
-              />
-              {cityData.city}
-            </div>
-          ))}
+          {citiesData
+            .sort((a, b) => a.city.localeCompare(b.city))
+            .map((cityData) => (
+              <div
+                key={cityData.city}
+                className={styles.option}
+                onClick={() => handleSelect(cityData.city)}
+              >
+                <img
+                  src={cityData.img}
+                  alt={cityData.city}
+                  className={styles.optionImage}
+                />
+                {cityData.city}
+              </div>
+            ))}
         </div>
       )}
     </div>
