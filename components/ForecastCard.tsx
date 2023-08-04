@@ -25,10 +25,7 @@ const ForecastCard: React.FC<ForecastProps> = (day) => {
     }
   }, [day.icon]); // Only run when day.icon changes
   return (
-    <div
-      key={day.datetime}
-      className="min-w-[120px] h-[140px] flex flex-col items-center justify-center"
-    >
+    <div className="min-w-[120px] h-[140px] flex flex-col items-center justify-center">
       <p className="text-xs text-gray-500">
         {weekdays[new Date(day.datetime).getDay()]}
       </p>

@@ -227,11 +227,9 @@ export default function Home() {
                       className="flex gap-10 overflow-x-scroll scrollbar-hide pt-6"
                     >
                       {weatherForecast.days.map((day) => (
-                        // <div key={day.datetime}>
-                        //   <p>{day.datetime}</p>
-                        //   <p>{day.conditions}</p>
-                        // </div>
-                        <ForecastCard {...day} />
+                        <div key={day.datetime}>
+                          <ForecastCard {...day} />
+                        </div>
                       ))}
                     </div>
                     <div className="flex gap-5 justify-center pt-4 text-gray-500">
