@@ -1,8 +1,6 @@
 import Head from "next/head";
-import Header from "../components/Header";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
-import { FireIcon } from "@heroicons/react/solid";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,22 +9,19 @@ import CustomDropdown from "../components/CustomDropdown";
 import citiesData from "../cities.json";
 import TripCard from "../components/TripCard";
 import CustomModal from "../components/CustomModal";
-import {
-  PlusIcon,
-  ArrowNarrowRightIcon,
-  ArrowNarrowLeftIcon,
-} from "@heroicons/react/outline";
+import { PlusIcon } from "@heroicons/react/outline";
 import { SearchIcon } from "@heroicons/react/solid";
 import ForecastCard from "../components/ForecastCard";
 import useSmoothScroll from "../hooks/useSmoothScroll"; // Import the custom hook
-import { signIn, signOut, useSession } from "next-auth/react";
 import { fetchWeatherForecast } from "./api/fetchWeatherForecast";
 import { fetchWeatherToday } from "./api/fetchWeatherToday";
 import CountdownTimer from "../components/CountdownTimer";
 import LoginButton from "../components/LoginButton";
+import Controls from "../components/Controls";
+import RightPanel from "../components/RightPanel";
+import WeatherForecastPanel from "../components/WeatherForecastPanel";
 
 export default function Home() {
-  //const { data: session } = useSession();
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
   const trips = useSelector((state) => state.trips);
@@ -61,7 +56,7 @@ export default function Home() {
   };
 
   console.log(trips);
-  const timeNow = new Date().getHours();
+  // const timeNow = new Date().getHours();
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -136,7 +131,6 @@ export default function Home() {
   }, [weatherToday?.days[0].icon]); // Only run when day.icon changes
   //Scrolling stuff
   const tripsContainerRef = useRef(null);
-  const weatherContainerRef = useRef(null);
   const { scrollLeft, scrollRight } = useSmoothScroll(); // Use the hook
   return (
     <div className="">
@@ -154,25 +148,6 @@ export default function Home() {
                 <div className="text-2xl mt-1 text-gray-800 font-semibold hover:cursor-pointer">
                   Weather <span className="font-bold">Forecast</span>
                 </div>
-                {/* {session ? (
-                  <div className="mr-4 flex flex-col items-end font-semibold text-gray-800">
-                    <p className="text-xl">Welcome, {session.user.name}</p>
-                    <p
-                      className="font-base hover:cursor-pointer text-sm underline text-gray-500"
-                      onClick={() => signOut()}
-                    >
-                      Logout
-                    </p>
-                  </div>
-                ) : (
-                  <div
-                    className="font-semibold rounded-md text-sm bg-gray-200  text-gray-800 px-4 py-2 mr-8 flex gap-4 hover: cursor-pointer"
-                    onClick={() => signIn()}
-                  >
-                    <img src="google-icon.png" width="20px" />
-                    <p>Login with Google</p>
-                  </div>
-                )} */}
                 <LoginButton />
               </div>
               <div className="flex bg-gray-200 rounded-md h-[40px] w-[200px] justify-center gap-2 my-12">
@@ -207,45 +182,15 @@ export default function Home() {
                   <p className="font-semibold rounded-2xl">Add Trip</p>
                 </div>
               </div>
-              <div className="flex gap-5 justify-center mr-48 pt-4 text-gray-500">
-                <ArrowNarrowLeftIcon
-                  className="h-6 hover:scale-110 hover:bg-slate-200 rounded-md px-2 transition-transform ease-in-out duration-200"
-                  onClick={() => scrollLeft(tripsContainerRef)}
-                />
-                <ArrowNarrowRightIcon
-                  className="h-6 hover:scale-110 hover:bg-slate-200 rounded-md px-2 transition-transform ease-in-out duration-200"
-                  onClick={() => scrollRight(tripsContainerRef)}
-                />
-              </div>
-              <div className="pt-2">
-                {selectedTrip && weatherForecast && (
-                  <div>
-                    <h2 className="font-semibold text-gray-800 text-xl">
-                      Week
-                    </h2>
-                    <div
-                      ref={weatherContainerRef}
-                      className="flex gap-10 overflow-x-scroll scrollbar-hide pt-6"
-                    >
-                      {weatherForecast.days.map((day) => (
-                        <div key={day.datetime}>
-                          <ForecastCard {...day} />
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex gap-5 justify-center pt-4 text-gray-500">
-                      <ArrowNarrowLeftIcon
-                        className="h-6 hover:scale-110 hover:bg-slate-200 rounded-md px-2 transition-transform ease-in-out duration-200"
-                        onClick={() => scrollLeft(weatherContainerRef)}
-                      />
-                      <ArrowNarrowRightIcon
-                        className="h-6 hover:scale-110 hover:bg-slate-200 rounded-md px-2 transition-transform ease-in-out duration-200"
-                        onClick={() => scrollRight(weatherContainerRef)}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
+              <Controls
+                scrollLeft={scrollLeft}
+                scrollRight={scrollRight}
+                containerRef={tripsContainerRef}
+              />
+              <WeatherForecastPanel
+                selectedTrip={selectedTrip}
+                weatherForecast={weatherForecast}
+              />
             </div>
           </div>
           <CustomModal
@@ -257,35 +202,7 @@ export default function Home() {
             minDate={minDate}
             maxDate={maxDate}
           />
-          <div
-            className={`${
-              timeNow >= 7 && timeNow <= 19
-                ? "bg-day-pattern"
-                : "bg-night-pattern"
-            } bg-cover w-[450px] h-[110vh] flex flex-col justify-center items-center`}
-          >
-            {selectedTrip && weatherToday && (
-              <div className="flex flex-col items-center">
-                <h2 className="text-white font-semibold text-3xl">
-                  {weekdays[new Date(weatherToday.days[0].datetime).getDay()]}
-                </h2>
-                <div className="flex my-4">
-                  <img
-                    src={`${imageWeather}-with-no-bg.png`}
-                    className="w-[60px]"
-                  />
-                  <p className="text-5xl text-white">
-                    {weatherToday.days[0].temp}
-                  </p>
-                  <p className="text-lg text-white">°C</p>
-                </div>
-                <p className="text-white text-2xl font-light">
-                  {weatherToday.address}
-                </p>
-                <CountdownTimer startDate={selectedTrip.startDate} />
-              </div>
-            )}
-          </div>
+          <RightPanel selectedTrip={selectedTrip} weatherToday={weatherToday} />
         </div>
       </main>
     </div>
