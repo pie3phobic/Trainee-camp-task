@@ -23,9 +23,10 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { fetchWeatherForecast } from "./api/fetchWeatherForecast";
 import { fetchWeatherToday } from "./api/fetchWeatherToday";
 import CountdownTimer from "../components/CountdownTimer";
+import LoginButton from "../components/LoginButton";
 
 export default function Home() {
-  const { data: session } = useSession();
+  //const { data: session } = useSession();
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
   const trips = useSelector((state) => state.trips);
@@ -150,10 +151,10 @@ export default function Home() {
           <div className="w-[600px] flex-1">
             <div className="">
               <div className="flex justify-between pt-4">
-                <div className="text-2xl text-gray-800 font-semibold hover:cursor-pointer">
+                <div className="text-2xl mt-1 text-gray-800 font-semibold hover:cursor-pointer">
                   Weather <span className="font-bold">Forecast</span>
                 </div>
-                {session ? (
+                {/* {session ? (
                   <div className="mr-4 flex flex-col items-end font-semibold text-gray-800">
                     <p className="text-xl">Welcome, {session.user.name}</p>
                     <p
@@ -171,7 +172,8 @@ export default function Home() {
                     <img src="google-icon.png" width="20px" />
                     <p>Login with Google</p>
                   </div>
-                )}
+                )} */}
+                <LoginButton />
               </div>
               <div className="flex bg-gray-200 rounded-md h-[40px] w-[200px] justify-center gap-2 my-12">
                 <div className="pt-1 pl-6">
