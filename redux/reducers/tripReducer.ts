@@ -18,6 +18,7 @@ const tripsReducer = (state = initialState, action) => {
 
       // Sort the updated trips array based on start dates
       updatedTrips.sort((a, b) => {
+        //@ts-ignore
         return new Date(a.startDate) - new Date(b.startDate);
       });
 

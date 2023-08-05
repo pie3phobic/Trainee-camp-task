@@ -64,8 +64,6 @@ export type ModalProps = {
   newTrip: TripProps;
   onChange: React.Dispatch<React.SetStateAction<TripProps>>;
   onAddTrip: () => void;
-  minDate: string | number;
-  maxDate: string | number;
 };
 export type CitiesProps = {
   img: string;

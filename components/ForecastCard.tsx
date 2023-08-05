@@ -22,6 +22,8 @@ const ForecastCard: React.FC<ForecastProps> = (day) => {
       setImageWeather("rain");
     } else if (day.icon.includes("overcast")) {
       setImageWeather("overcast");
+    } else if (day.icon.includes("wind")) {
+      setImageWeather("wind");
     }
   }, [day.icon]); // Only run when day.icon changes
   return (

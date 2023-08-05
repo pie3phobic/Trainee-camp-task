@@ -22,6 +22,7 @@ export default function Home() {
     city: "",
     startDate: "",
     endDate: "",
+    imageUrl: "",
   });
   const handleAddTripClick = () => {
     handleAddTrip(newTrip, dispatch, citiesData);
@@ -29,6 +30,7 @@ export default function Home() {
       city: "",
       startDate: "",
       endDate: "",
+      imageUrl: "",
     });
   };
   const [selectedTrip, setSelectedTrip] = useState(null);
@@ -66,6 +68,7 @@ export default function Home() {
   const filteredTrips = trips.trips.filter((trip) =>
     trip.city.toLowerCase().includes(searchInput.toLowerCase())
   );
+  console.log(weatherForecast);
   return (
     <div className="">
       <Head>
