@@ -67,3 +67,7 @@ export type ModalProps = {
   minDate: string | number;
   maxDate: string | number;
 };
+export type CitiesProps = {
+  img: string;
+  cities: string;
+};

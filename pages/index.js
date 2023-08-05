@@ -1,29 +1,21 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addTrip } from "../redux/actions/tripActions";
-import CustomDropdown from "../components/CustomDropdown";
 import citiesData from "../cities.json";
-import TripCard from "../components/TripCard";
 import CustomModal from "../components/CustomModal";
-import { PlusIcon } from "@heroicons/react/outline";
 import { SearchIcon } from "@heroicons/react/solid";
-import ForecastCard from "../components/ForecastCard";
-import useSmoothScroll from "../hooks/useSmoothScroll"; // Import the custom hook
 import { fetchWeatherForecast } from "./api/fetchWeatherForecast";
 import { fetchWeatherToday } from "./api/fetchWeatherToday";
-import CountdownTimer from "../components/CountdownTimer";
 import LoginButton from "../components/LoginButton";
-import Controls from "../components/Controls";
 import RightPanel from "../components/RightPanel";
 import WeatherForecastPanel from "../components/WeatherForecastPanel";
+import { handleAddTrip } from "../helpers/handleAddTrip";
+import TripContainer from "../components/TripContainer";
 
 export default function Home() {
   const [searchInput, setSearchInput] = useState("");
-  const router = useRouter();
   const trips = useSelector((state) => state.trips);
   const dispatch = useDispatch();
   const [newTrip, setNewTrip] = useState({
@@ -31,72 +23,39 @@ export default function Home() {
     startDate: "",
     endDate: "",
   });
-
-  const handleAddTrip = () => {
-    const formattedStartDate = formatDate(newTrip.startDate);
-    const formattedEndDate = formatDate(newTrip.endDate);
-    const selectedCityData = citiesData.find(
-      (cityData) => cityData.city === newTrip.city
-    );
-    // Create the trip object with the city name, start date, end date, and image URL
-    const trip = {
-      ...newTrip,
-      city: newTrip.city,
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
-      imageUrl: selectedCityData ? selectedCityData.img : "", // Set the image URL based on selected city
-    };
-    // Dispatch the action with the current newTrip values
-    dispatch(addTrip(trip));
+  const handleAddTripClick = () => {
+    handleAddTrip(newTrip, dispatch, citiesData);
     setNewTrip({
       city: "",
       startDate: "",
       endDate: "",
     });
   };
-
-  console.log(trips);
-  // const timeNow = new Date().getHours();
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-  const today = new Date();
-  const next15Days = new Date(today);
-  next15Days.setDate(next15Days.getDate() + 15);
-  const minDate = formatDate(today);
-  const maxDate = formatDate(next15Days);
-  //Trip weather forecast fetch
   const [selectedTrip, setSelectedTrip] = useState(null);
   const [weatherForecast, setWeatherForecast] = useState(null);
   const [weatherToday, setWeatherToday] = useState(null);
+  const fetchWeatherData = (city, startDate, endDate) => {
+    Promise.all([
+      fetchWeatherForecast(city, startDate, endDate),
+      fetchWeatherToday(city),
+    ])
+      .then(([forecast, today]) => {
+        setWeatherForecast(forecast);
+        setWeatherToday(today);
+      })
+      .catch((error) => console.error(error));
+  };
 
   useEffect(() => {
     if (selectedTrip) {
-      fetchWeatherForecast(
-        selectedTrip.city,
-        selectedTrip.startDate,
-        selectedTrip.endDate
-      )
-        .then(setWeatherForecast)
-        .catch((error) => console.error(error));
-      fetchWeatherToday(selectedTrip.city).then(setWeatherToday);
+      const { city, startDate, endDate } = selectedTrip;
+      fetchWeatherData(city, startDate, endDate);
     }
   }, [selectedTrip]);
 
   const handleTripClick = (trip) => {
-    const formattedStartDate = formatDate(trip.startDate);
-    const formattedEndDate = formatDate(trip.endDate);
-    fetchWeatherForecast(trip.city, formattedStartDate, formattedEndDate);
-    fetchWeatherToday(trip);
     setSelectedTrip(trip);
   };
-
-  console.log(weatherForecast);
-  console.log(weatherToday);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
     setIsModalOpen(true);
@@ -107,31 +66,6 @@ export default function Home() {
   const filteredTrips = trips.trips.filter((trip) =>
     trip.city.toLowerCase().includes(searchInput.toLowerCase())
   );
-  //Countdown timer stuff - exported
-  const weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const [imageWeather, setImageWeather] = useState("");
-  useEffect(() => {
-    if (weatherToday?.days[0].icon.includes("cloudy")) {
-      setImageWeather("cloudy");
-    } else if (weatherToday?.days[0].icon.includes("clear")) {
-      setImageWeather("clear");
-    } else if (weatherToday?.days[0].icon.includes("rain")) {
-      setImageWeather("rain");
-    } else if (weatherToday?.days[0].icon.includes("overcast")) {
-      setImageWeather("overcast");
-    }
-  }, [weatherToday?.days[0].icon]); // Only run when day.icon changes
-  //Scrolling stuff
-  const tripsContainerRef = useRef(null);
-  const { scrollLeft, scrollRight } = useSmoothScroll(); // Use the hook
   return (
     <div className="">
       <Head>
@@ -141,7 +75,6 @@ export default function Home() {
       </Head>
       <main>
         <div className="ml-10 flex gap-7 justify-between">
-          {/* Trip list */}
           <div className="w-[600px] flex-1">
             <div className="">
               <div className="flex justify-between pt-4">
@@ -162,30 +95,10 @@ export default function Home() {
                   placeholder={"Search your trip"}
                 />
               </div>
-              <div className="flex gap-5 flex-1">
-                <div
-                  id="tripContainer"
-                  ref={tripsContainerRef}
-                  className="overflow-x-scroll space-x-8 scrollbar-hide flex transition-transform duration-300 ease-linear"
-                >
-                  {filteredTrips.map((trip) => (
-                    <div key={trip.city} onClick={() => handleTripClick(trip)}>
-                      <TripCard {...trip} />
-                    </div>
-                  ))}
-                </div>
-                <div
-                  className="bg-gray-300 min-w-[190px] mt-2 h-[170px] flex flex-col items-center justify-center cursor-pointer"
-                  onClick={openModal}
-                >
-                  <PlusIcon className="h-6" />
-                  <p className="font-semibold rounded-2xl">Add Trip</p>
-                </div>
-              </div>
-              <Controls
-                scrollLeft={scrollLeft}
-                scrollRight={scrollRight}
-                containerRef={tripsContainerRef}
+              <TripContainer
+                filteredTrips={filteredTrips}
+                handleTripClick={handleTripClick}
+                openModal={openModal}
               />
               <WeatherForecastPanel
                 selectedTrip={selectedTrip}
@@ -198,9 +111,7 @@ export default function Home() {
             onClose={closeModal}
             newTrip={newTrip}
             onChange={setNewTrip}
-            onAddTrip={handleAddTrip}
-            minDate={minDate}
-            maxDate={maxDate}
+            onAddTrip={handleAddTripClick}
           />
           <RightPanel selectedTrip={selectedTrip} weatherToday={weatherToday} />
         </div>

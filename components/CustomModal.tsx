@@ -3,19 +3,24 @@ import CustomDropdown from "./CustomDropdown";
 import styles from "../styles/Home.module.css";
 import { XIcon } from "@heroicons/react/solid";
 import { ModalProps } from "../types";
+import { formatDate } from "../helpers/formatDate";
 const CustomModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   newTrip,
   onChange,
   onAddTrip,
-  minDate,
-  maxDate,
 }) => {
   if (!isOpen) {
     return null;
   }
-
+  const today = new Date();
+  const next15Days = new Date(today);
+  next15Days.setDate(next15Days.getDate() + 15);
+  // @ts-ignore
+  const minDate = formatDate(today);
+  // @ts-ignore
+  const maxDate = formatDate(next15Days);
   return (
     <div className={styles.modal}>
       <div className="bg-white rounded-sm flex flex-col">
@@ -49,8 +54,8 @@ const CustomModal: React.FC<ModalProps> = ({
           id="startDate"
           value={newTrip.startDate}
           placeholder="Start Date"
-          min={minDate} // Set the minimum date to today
-          max={maxDate} // Set the maximum date to the next 15 days
+          min={minDate}
+          max={maxDate}
           onChange={(e) => onChange({ ...newTrip, startDate: e.target.value })}
           className="mx-5 px-2 border border-gray-300 py-2 text-gray-500"
           required
@@ -67,8 +72,8 @@ const CustomModal: React.FC<ModalProps> = ({
           value={newTrip.endDate}
           onChange={(e) => onChange({ ...newTrip, endDate: e.target.value })}
           placeholder="End Date"
-          min={minDate} // Set the minimum date to today
-          max={maxDate} // Set the maximum date to the next 15 days
+          min={minDate}
+          max={maxDate}
           className="mx-5 px-2 border border-gray-300 py-2 mb-2 text-gray-500"
           required
         />
