@@ -1,9 +1,13 @@
 import React from "react";
 import CountdownTimer from "./CountdownTimer";
 import { useState, useEffect } from "react";
-import { ForecastProps, TripProps } from "../types";
+import { WeatherProps, TripProps } from "../types";
+type RightPanelProps = {
+    selectedTrip: TripProps | null; // Assuming TripProps is the type for your trip data
+    weatherToday: WeatherProps | null; // Assuming ForecastProps is the type for weather data
+  };
 
-const RightPanel: React.FC = ({ selectedTrip, weatherToday }) => {
+const RightPanel: React.FC<RightPanelProps> = ({ selectedTrip, weatherToday }) => {
   const timeNow = new Date().getHours();
   const weekdays = [
     "Sunday",

@@ -1,7 +1,7 @@
 const apiKey = process.env.api_key;
-import { ForecastProps } from "../../types";
+import { WeatherProps } from "../../types";
 type FetchWeatherForecastResponse = {
-  data: ForecastProps;
+  data: WeatherProps;
 };
 export const fetchWeatherForecast = async (
   city: string,

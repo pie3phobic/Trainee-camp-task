@@ -1,9 +1,14 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 import Controls from "./Controls";
 import ForecastCard from "./ForecastCard";
 import useSmoothScroll from "../hooks/useSmoothScroll";
+import { TripProps, WeatherProps } from "../types";
+type WeatherForecastPanelProps = {
+  selectedTrip: TripProps | null;
+  weatherForecast: WeatherProps | null;
+};
 
-const WeatherForecatPanel: React.FC = ({
+const WeatherForecatPanel: React.FC<WeatherForecastPanelProps> = ({
   selectedTrip,
   weatherForecast,
 }) => {
