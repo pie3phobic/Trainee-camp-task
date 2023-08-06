@@ -3,8 +3,10 @@ import ProgressBar from "@badrap/bar-of-progress";
 import Router from "next/router";
 import React from "react";
 import { Provider } from "react-redux";
-import store from "../redux/store";
+//import store from "../redux/store";
 import { SessionProvider } from "next-auth/react";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "../redux/store";
 
 const progress = new ProgressBar({
   size: 4,
@@ -21,7 +23,9 @@ function MyApp({ Component, pageProps, session }) {
   return (
     <SessionProvider session={session}>
       <Provider store={store}>
-        <Component {...pageProps} />
+        <PersistGate loading={null} persistor={persistor}>
+          <Component {...pageProps} />
+        </PersistGate>
       </Provider>
     </SessionProvider>
   );
