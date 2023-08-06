@@ -13,7 +13,7 @@ const WeatherForecatPanel: React.FC<WeatherForecastPanelProps> = ({
   weatherForecast,
 }) => {
   const weatherContainerRef = useRef(null);
-  const { scrollLeft, scrollRight } = useSmoothScroll(); // Use the hook
+  const { scrollLeft, scrollRight } = useSmoothScroll();
   return (
     <div className="pt-2">
       {selectedTrip && weatherForecast && (

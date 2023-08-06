@@ -13,7 +13,6 @@ const ForecastCard: React.FC<ForecastProps> = (day) => {
   ];
   const [imageWeather, setImageWeather] = useState("");
   useEffect(() => {
-    // Conditionally set the imageWeather state based on day.icon
     if (day.icon.includes("cloudy")) {
       setImageWeather("cloudy");
     } else if (day.icon.includes("clear")) {
@@ -25,7 +24,7 @@ const ForecastCard: React.FC<ForecastProps> = (day) => {
     } else if (day.icon.includes("wind")) {
       setImageWeather("wind");
     }
-  }, [day.icon]); // Only run when day.icon changes
+  }, [day.icon]);
   return (
     <div className="min-w-[100px] h-[120px] flex flex-col items-center justify-center">
       <p className="text-xs text-gray-500">

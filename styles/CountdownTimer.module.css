@@ -1,0 +1,27 @@
+.countdown_container {
+  display: flex;
+  margin-top: 6rem;
+  gap: 1.25rem;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  color: white;
+}
+
+.countdown_item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.countdown_value {
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.countdown_label {
+  font-size: 0.875rem;
+  font-weight: 300;
+}

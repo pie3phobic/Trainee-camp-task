@@ -1,0 +1,7 @@
+.div {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  padding-top: 0.75rem;
+  color: rgb(107 114 128);
+}

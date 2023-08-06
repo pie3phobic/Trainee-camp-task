@@ -20,7 +20,7 @@ const LoginButton: React.FC = () => {
         </div>
       ) : (
         <div
-          className="font-semibold rounded-md text-sm bg-gray-200  text-gray-800 px-4 py-2 mr-8 flex gap-4 hover: cursor-pointer"
+          className="font-semibold rounded-md text-sm bg-gray-200  text-gray-800 px-4 py-2 flex gap-4 hover: cursor-pointer"
           onClick={() => signIn()}
         >
           <img src="google-icon.png" width="20px" />

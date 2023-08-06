@@ -1,10 +1,9 @@
-/* CustomDropdown.module.css */
 .dropdown {
   position: relative;
   width: 100%;
 }
 
-.selectedOption {
+.selected_option {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -12,7 +11,7 @@
   border: 1px solid #ccc;
 }
 
-.optionImage {
+.option_image {
   width: 24px;
   height: 24px;
   margin-right: 8px;
@@ -41,4 +40,10 @@
 
 .option:hover {
   background-color: #f2f2f2;
+}
+.selected_value {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  color: rgb(107 114 128);
 }

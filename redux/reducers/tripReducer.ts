@@ -26,7 +26,6 @@ const tripsReducer = (state = initialState, action) => {
         ...state,
         trips: updatedTrips,
       };
-    // Add other cases for removing, updating trips if needed
     default:
       return state;
   }

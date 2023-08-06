@@ -129,7 +129,6 @@
   cursor: pointer;
 }
 
-/* pagination pageItem */
 .pageItem {
   display: flex;
   justify-content: center;
@@ -141,7 +140,6 @@
   cursor: pointer;
 }
 
-/* pagination page item when active */
 .pageItemActive {
   display: flex;
   justify-content: center;
@@ -163,4 +161,87 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.save_button {
+  background-color: rgb(59 130 246);
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  color: white;
+  border-radius: 0.125rem;
+}
+.cancel_button {
+  border-width: 1px;
+  border-color: rgb(209 213 219);
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.button_container {
+  margin-top: 4rem;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: flex-end;
+  border-top-width: 1px;
+  border-top-color: rgb(229 231 235);
+}
+.date_input {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  padding: 0.5rem;
+  border-width: 1px;
+  border-color: rgb(209 213 219);
+  margin-bottom: 0.5rem;
+  color: rgb(107 114 128);
+}
+.date_input_label {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  color: rgb(55 65 81);
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.city_label {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  color: rgb(55 65 81);
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 3.5rem;
+  padding-bottom: 0.5rem;
+}
+.x_icon {
+  height: 1.5rem;
+  color: rgb(156 163 175);
+  cursor: pointer;
+}
+.modal_label {
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: rgb(31 41 55);
+}
+.modal_container {
+  background-color: white;
+  border-radius: 0.125rem;
+  display: flex;
+  flex-direction: column;
+}
+.modal_items_container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom-width: 1px;
+  border-bottom-color: rgb(229 231 235);
+  width: 550px;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }

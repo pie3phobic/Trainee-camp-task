@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styles from "../styles/CountdownTimer.module.css";
 
 const CountdownTimer = ({ startDate }) => {
   const [countdown, setCountdown] = useState({
@@ -33,33 +34,29 @@ const CountdownTimer = ({ startDate }) => {
 
   useEffect(() => {
     calculateCountdown(startDate);
-
-    // Update the countdown every second
     const interval = setInterval(() => {
       calculateCountdown(startDate);
     }, 1000);
-
-    // Clean up the interval on component unmount
     return () => clearInterval(interval);
   }, [startDate]);
 
   return (
-    <div className="mt-24 flex gap-5 justify-center items-center uppercase text-white">
-      <div className="flex flex-col justify-center items-center">
-        <p className="font-black text-2xl">{countdown.days}</p>
-        <p className="text-sm font-light">days</p>
+    <div className={styles.countdown_container}>
+      <div className={styles.countdown_item}>
+        <p className={styles.countdown_value}>{countdown.days}</p>
+        <p className={styles.countdown_label}>days</p>
       </div>
-      <div className="flex flex-col justify-center items-center">
-        <p className="font-black text-2xl">{countdown.hours}</p>
-        <p className="text-sm font-light">hours</p>
+      <div className={styles.countdown_item}>
+        <p className={styles.countdown_value}>{countdown.hours}</p>
+        <p className={styles.countdown_label}>hours</p>
       </div>
-      <div className="flex flex-col justify-center items-center">
-        <p className="font-black text-2xl">{countdown.minutes}</p>
-        <p className="text-sm font-light">minutes</p>
+      <div className={styles.countdown_item}>
+        <p className={styles.countdown_value}>{countdown.minutes}</p>
+        <p className={styles.countdown_label}>minutes</p>
       </div>
-      <div className="flex flex-col justify-center items-center">
-        <p className="font-black text-2xl">{countdown.seconds}</p>
-        <p className="text-sm font-light">seconds</p>
+      <div className={styles.countdown_item}>
+        <p className={styles.countdown_value}>{countdown.seconds}</p>
+        <p className={styles.countdown_label}>seconds</p>
       </div>
     </div>
   );

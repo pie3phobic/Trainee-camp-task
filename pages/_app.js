@@ -3,7 +3,6 @@ import ProgressBar from "@badrap/bar-of-progress";
 import Router from "next/router";
 import React from "react";
 import { Provider } from "react-redux";
-//import store from "../redux/store";
 import { SessionProvider } from "next-auth/react";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "../redux/store";

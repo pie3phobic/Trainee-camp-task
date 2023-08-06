@@ -24,15 +24,18 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
 
   return (
     <div className={styles.dropdown} onClick={handleClick}>
-      <div className={styles.selectedOption} onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={styles.selected_option}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {selectedValue ? (
           <img
             src={citiesData.find((city) => city.city === selectedValue)?.img}
             alt={selectedValue}
-            className={styles.optionImage}
+            className={styles.option_image}
           />
         ) : null}
-        <div className="flex flex-1 justify-between">
+        <div className={styles.selected_value}>
           <p className="text-gray-500">
             {selectedValue || "Please select a city"}
           </p>
@@ -56,7 +59,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 <img
                   src={cityData.img}
                   alt={cityData.city}
-                  className={styles.optionImage}
+                  className={styles.option_image}
                 />
                 {cityData.city}
               </div>

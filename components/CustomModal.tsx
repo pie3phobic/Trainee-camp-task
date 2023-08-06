@@ -21,20 +21,16 @@ const CustomModal: React.FC<ModalProps> = ({
   const minDate = formatDate(today);
   // @ts-ignore
   const maxDate = formatDate(next15Days);
+  const isSaveDisabled =
+    !newTrip.city || !newTrip.startDate || !newTrip.endDate;
   return (
     <div className={styles.modal}>
-      <div className="bg-white rounded-sm flex flex-col">
-        <div className="flex justify-between border-b border-b-gray-200 w-[550px] py-3 px-5">
-          <p className="font-semibold text-xl text-gray-800">Create trip</p>
-          <XIcon
-            className="h-6 text-gray-400 cursor-pointer"
-            onClick={onClose}
-          />
+      <div className={styles.modal_container}>
+        <div className={styles.modal_items_container}>
+          <p className={styles.modal_label}>Create trip</p>
+          <XIcon className={styles.x_icon} onClick={onClose} />
         </div>
-        <label
-          htmlFor="city"
-          className="text-base font-semibold text-gray-700 px-5 pt-14 pb-2"
-        >
+        <label htmlFor="city" className={styles.city_label}>
           <span className="text-red-500">* </span>City
         </label>
         <div className="px-5">
@@ -43,10 +39,7 @@ const CustomModal: React.FC<ModalProps> = ({
             onChange={(city) => onChange({ ...newTrip, city })}
           />
         </div>
-        <label
-          htmlFor="startDate"
-          className="text-base font-semibold text-gray-700 px-5 py-2"
-        >
+        <label htmlFor="startDate" className={styles.date_input_label}>
           <span className="text-red-500">* </span>Start date
         </label>
         <input
@@ -57,13 +50,10 @@ const CustomModal: React.FC<ModalProps> = ({
           min={minDate}
           max={maxDate}
           onChange={(e) => onChange({ ...newTrip, startDate: e.target.value })}
-          className="mx-5 px-2 border border-gray-300 py-2 text-gray-500"
+          className={styles.date_input}
           required
         />
-        <label
-          htmlFor="endDate"
-          className="text-base font-semibold text-gray-700 px-5 py-2"
-        >
+        <label htmlFor="endDate" className={styles.date_input_label}>
           <span className="text-red-500">* </span>End date
         </label>
         <input
@@ -74,19 +64,17 @@ const CustomModal: React.FC<ModalProps> = ({
           placeholder="End Date"
           min={minDate}
           max={maxDate}
-          className="mx-5 px-2 border border-gray-300 py-2 mb-2 text-gray-500"
+          className={styles.date_input}
           required
         />
-        <div className="mt-16 flex gap-4 px-4 py-4 justify-end border-t border-t-gray-200">
-          <button
-            className="border border-gray-300 px-5 py-1"
-            onClick={onClose}
-          >
+        <div className={styles.button_container}>
+          <button className={styles.cancel_button} onClick={onClose}>
             Cancel
           </button>
           <button
-            className="bg-blue-500 px-5 py-1 text-white rounded-sm"
+            className={styles.save_button}
             onClick={onAddTrip}
+            disabled={isSaveDisabled}
           >
             Save
           </button>
