@@ -27,12 +27,12 @@ const ForecastCard: React.FC<ForecastProps> = (day) => {
     }
   }, [day.icon]); // Only run when day.icon changes
   return (
-    <div className="min-w-[120px] h-[140px] flex flex-col items-center justify-center">
+    <div className="min-w-[100px] h-[120px] flex flex-col items-center justify-center">
       <p className="text-xs text-gray-500">
         {weekdays[new Date(day.datetime).getDay()]}
       </p>
       {imageWeather && (
-        <img src={`${imageWeather}-with-no-bg.png`} className="w-[70px]" />
+        <img src={`${imageWeather}-with-no-bg.png`} className="w-[60px] py-3" />
       )}
       <p>
         {Math.round(day.tempmax)}°/{Math.round(day.tempmin)}°

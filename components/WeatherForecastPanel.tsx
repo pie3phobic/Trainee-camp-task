@@ -21,7 +21,7 @@ const WeatherForecatPanel: React.FC<WeatherForecastPanelProps> = ({
           <h2 className="font-semibold text-gray-800 text-xl">Week</h2>
           <div
             ref={weatherContainerRef}
-            className="flex gap-10 overflow-x-scroll scrollbar-hide pt-6"
+            className="flex gap-5 overflow-x-scroll scrollbar-hide pt-8"
           >
             {weatherForecast.days.map((day) => (
               <div key={day.datetime}>

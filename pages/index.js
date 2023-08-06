@@ -77,17 +77,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="ml-10 flex gap-7 justify-between">
+        <div className="ml-6 flex gap-7 justify-between">
           <div className="w-[600px] flex-1">
             <div className="">
               <div className="flex justify-between pt-4">
-                <div className="text-2xl mt-1 text-gray-800 font-semibold hover:cursor-pointer">
+                <div className="text-xl mt-1 text-gray-800 font-semibold hover:cursor-pointer">
                   Weather <span className="font-bold">Forecast</span>
                 </div>
                 <LoginButton />
               </div>
-              <div className="flex bg-gray-200 rounded-md h-[40px] w-[200px] justify-center gap-2 my-12">
-                <div className="pt-1 pl-6">
+              <div className="flex bg-gray-200 rounded-md h-[40px] w-[220px] justify-center gap-2 my-6">
+                <div className="pt-1 pl-2">
                   <SearchIcon className="h-8 p-1 text-gray-800 rounded-full cursor-pointer" />
                 </div>
                 <input

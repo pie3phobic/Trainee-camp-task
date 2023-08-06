@@ -3,16 +3,15 @@ import CountdownTimer from "./CountdownTimer";
 import { useState, useEffect } from "react";
 import { WeatherProps, TripProps } from "../types";
 type RightPanelProps = {
-  selectedTrip: TripProps | null; // Assuming TripProps is the type for your trip data
-  weatherToday: WeatherProps | null; // Assuming ForecastProps is the type for weather data
+  selectedTrip: TripProps | null;
+  weatherToday: WeatherProps | null;
 };
 
 const RightPanel: React.FC<RightPanelProps> = ({
   selectedTrip,
   weatherToday,
 }) => {
-  //const timeNow = new Date().getHours();
-  const [isDay, setIsDay] = useState(true); // Default to day, can be night too
+  const [isDay, setIsDay] = useState(true);
   useEffect(() => {
     const timeNow = new Date().getHours();
     setIsDay(timeNow >= 7 && timeNow < 19);
@@ -40,12 +39,9 @@ const RightPanel: React.FC<RightPanelProps> = ({
   }, [weatherToday?.days[0].icon]); // Only run when day.icon changes
   return (
     <div
-      //   className={`${
-      //     timeNow >= 7 && timeNow <= 19 ? "bg-day-pattern" : "bg-night-pattern"
-      //   } bg-cover w-[450px] h-[110vh] flex flex-col justify-center items-center`}
       className={`${
         isDay ? "bg-day-pattern" : "bg-night-pattern"
-      } bg-cover w-[450px] h-[110vh] flex flex-col justify-center items-center`}
+      } bg-cover w-[400px] h-[115vh] flex flex-col justify-center items-center`}
     >
       {selectedTrip && weatherToday && (
         <div className="flex flex-col items-center">

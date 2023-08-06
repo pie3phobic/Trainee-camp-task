@@ -6,13 +6,13 @@ const LoginButton: React.FC = () => {
   return (
     <div>
       {session ? (
-        <div className="mr-4 flex flex-col items-end font-semibold text-gray-800">
+        <div className="mr-2 flex flex-col items-end font-semibold text-gray-800">
           <div className="flex">
-            <p className="text-xl pt-1 mr-3">Welcome, {session.user.name}</p>
+            <p className="text-lg pt-1 mr-3">Welcome, {session.user.name}</p>
             <img src={session.user.image} className="w-[40px] rounded-full" />
           </div>
           <p
-            className="font-base hover:cursor-pointer text-sm underline text-gray-500"
+            className="font-base hover:cursor-pointer text-xs underline text-gray-500"
             onClick={() => signOut()}
           >
             Logout

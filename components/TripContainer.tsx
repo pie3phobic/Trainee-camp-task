@@ -23,7 +23,7 @@ const TripContainer: React.FC<TripContainerProps> = ({
         <div
           id="tripContainer"
           ref={tripsContainerRef}
-          className="overflow-x-scroll space-x-8 scrollbar-hide flex transition-transform duration-300 ease-linear"
+          className="overflow-x-scroll space-x-6 scrollbar-hide flex transition-transform duration-300 ease-linear"
         >
           {filteredTrips.map((trip) => (
             <div key={trip.city} onClick={() => handleTripClick(trip)}>
@@ -32,7 +32,7 @@ const TripContainer: React.FC<TripContainerProps> = ({
           ))}
         </div>
         <div
-          className="bg-gray-300 min-w-[190px] mt-2 h-[170px] flex flex-col items-center justify-center cursor-pointer"
+          className="bg-gray-300 min-w-[170px] mt-2 h-[150px] flex flex-col items-center justify-center cursor-pointer"
           onClick={openModal}
         >
           <PlusIcon className="h-6" />
