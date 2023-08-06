@@ -11,6 +11,7 @@ This project was made with a framework for React.JS - Next.JS, TailwindCSS.
 ## Completed Bonus tasks:
 
 Thank you <3
+\*\*Image credits: Freepic, Unsplash
 
 ## Опис:
 
