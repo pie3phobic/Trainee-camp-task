@@ -1,0 +1,42 @@
+.container_div {
+  display: flex;
+  gap: 1.25rem;
+  flex: 1 1 0%;
+}
+.trip_container {
+  overflow-x: scroll;
+  display: flex;
+  gap: 1.5rem;
+  transition-duration: 300ms;
+  transition-timing-function: linear;
+}
+.scrollbar_hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar_hide::-webkit-scrollbar {
+  display: none;
+}
+.transition_transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.add_trip_button {
+  background-color: rgb(209 213 219);
+  min-width: 170px;
+  margin-top: 0.5rem;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.add_trip_button_label {
+  font-weight: 600;
+  border-radius: 1rem;
+}
+.plus_icon {
+  height: 1.5rem;
+}

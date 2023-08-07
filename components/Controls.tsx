@@ -18,11 +18,11 @@ const Controls: React.FC<ControlsProps> = ({
   return (
     <div className={styles.div}>
       <ArrowNarrowLeftIcon
-        className="h-6 hover:scale-110 hover:bg-slate-200 rounded-md px-2 transition-transform ease-in-out duration-200"
+        className={styles.arrow}
         onClick={() => scrollLeft(containerRef)}
       />
       <ArrowNarrowRightIcon
-        className="h-6 hover:scale-110 hover:bg-slate-200 rounded-md px-2 transition-transform ease-in-out duration-200"
+        className={styles.arrow}
         onClick={() => scrollRight(containerRef)}
       />
     </div>

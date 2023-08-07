@@ -3,6 +3,7 @@ import Controls from "./Controls";
 import ForecastCard from "./ForecastCard";
 import useSmoothScroll from "../hooks/useSmoothScroll";
 import { TripProps, WeatherProps } from "../types";
+import styles from "../styles/WeatherForecastPanel.module.css";
 type WeatherForecastPanelProps = {
   selectedTrip: TripProps | null;
   weatherForecast: WeatherProps | null;
@@ -15,13 +16,13 @@ const WeatherForecatPanel: React.FC<WeatherForecastPanelProps> = ({
   const weatherContainerRef = useRef(null);
   const { scrollLeft, scrollRight } = useSmoothScroll();
   return (
-    <div className="pt-2">
+    <div className={styles.forecast_panel_container}>
       {selectedTrip && weatherForecast && (
         <div>
-          <h2 className="font-semibold text-gray-800 text-xl">Week</h2>
+          <h2 className={styles.forecast_panel_header}>Week</h2>
           <div
             ref={weatherContainerRef}
-            className="flex gap-5 overflow-x-scroll scrollbar-hide pt-8"
+            className={`${styles.forecast_cards_container} ${styles.scrollbar_hide}`}
           >
             {weatherForecast.days.map((day) => (
               <div key={day.datetime}>

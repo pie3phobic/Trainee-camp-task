@@ -6,6 +6,9 @@
   font-weight: 600;
   color: rgb(31 41 55);
 }
+.login_main_content {
+  display: flex;
+}
 .user_image {
   width: 40px;
   border-radius: 9999px;
@@ -29,7 +32,7 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
   background-color: rgb(229 231 235);
-  color: rgb(31 41 550);
+  color: rgb(31 41 55);
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;

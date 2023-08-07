@@ -40,9 +40,9 @@ const RightPanel: React.FC<RightPanelProps> = ({
   }, [weatherToday?.days[0].icon]);
   return (
     <div
-      className={`${
-        isDay ? "bg-day-pattern" : "bg-night-pattern"
-      } bg-cover w-[580px] mr-10 md:mr-0 h-[400px] md:w-[400px] md:h-[115vh] flex flex-col justify-center items-center`}
+      className={`${styles.background_container} ${
+        isDay ? `${styles.bg_day_pattern}` : `${styles.bg_night_pattern}`
+      }`}
     >
       {selectedTrip && weatherToday && (
         <div className={styles.right_container}>

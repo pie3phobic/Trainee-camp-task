@@ -8,7 +8,7 @@ const LoginButton: React.FC = () => {
     <div>
       {session ? (
         <div className={styles.login_container}>
-          <div className="flex">
+          <div className={styles.login_main_content}>
             <p className={styles.user_name}>Welcome, {session.user.name}</p>
             <img src={session.user.image} className={styles.user_image} />
           </div>
@@ -17,10 +17,7 @@ const LoginButton: React.FC = () => {
           </p>
         </div>
       ) : (
-        <div
-          className="font-semibold rounded-md text-sm bg-gray-200  text-gray-800 px-4 py-2 flex gap-4 hover: cursor-pointer"
-          onClick={() => signIn()}
-        >
+        <div className={styles.signin_button} onClick={() => signIn()}>
           <img src="google-icon.png" width="20px" />
           <p>Login with Google</p>
         </div>

@@ -1,0 +1,40 @@
+.trip_card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 170px;
+  cursor: pointer;
+  transition: transform 170ms ease-in-out;
+  margin: 0.5rem;
+}
+
+.trip_card:hover {
+  transform: scale(1.05);
+}
+
+.trip_image {
+  height: 140px;
+}
+
+.trip_content {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-width: 1px;
+  border-bottom-color: rgb(229 231 235);
+  border-right-color: rgb(229 231 235);
+  border-right-color: rgb(229 231 235);
+  padding-bottom: 1rem;
+}
+
+.trip_city {
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.trip_dates {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}

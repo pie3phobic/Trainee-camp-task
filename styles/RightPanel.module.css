@@ -30,3 +30,31 @@
   line-height: 2rem;
   font-weight: 300;
 }
+.background_container {
+  width: 580px; /* Adjust width as needed */
+  height: 400px; /* Adjust height as needed */
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.25rem; /* Equivalent to mr-10 in Tailwind */
+}
+
+.bg_day_pattern {
+  background-image: url("https://cdn.dribbble.com/users/925716/screenshots/3333720/attachments/722376/after_noon.png?resize=800x600&vertical=center"); /* Add your day background image path */
+}
+
+.bg_night_pattern {
+  background-image: url("https://cdn.dribbble.com/users/925716/screenshots/3333720/attachments/722375/night.png?resize=800x600&vertical=center"); /* Add your night background image path */
+}
+
+/* Media query for smaller screens (adjust as needed) */
+@media (min-width: 768px) {
+  .background_container {
+    width: 400px;
+    height: 115vh;
+    margin-right: 0; /* Remove margin for smaller screens */
+  }
+}

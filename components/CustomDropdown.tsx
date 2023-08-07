@@ -36,12 +36,12 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
           />
         ) : null}
         <div className={styles.selected_value}>
-          <p className="text-gray-500">
+          <p className={styles.selected_value_text}>
             {selectedValue || "Please select a city"}
           </p>
           <ChevronDownIcon
-            className={`h-6 text-gray-500 transition-transform duration-200 ease-out transform ${
-              isRotated ? "rotate-180" : "rotate-0"
+            className={`${styles.chevron_icon} ${
+              isRotated ? `${styles.rotate_180}` : `${styles.rotate_0}`
             }`}
           />
         </div>

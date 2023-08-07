@@ -47,3 +47,20 @@
   justify-content: space-between;
   color: rgb(107 114 128);
 }
+.chevron_icon {
+  height: 1.5rem;
+  color: rgb(107 114 128);
+  transition: transform 200ms ease-out;
+  display: inline-block;
+}
+
+.rotate_0 {
+  transform: rotate(0deg);
+}
+
+.rotate_180 {
+  transform: rotate(180deg);
+}
+.selected_value_text {
+  color: rgb(107 114 128);
+}

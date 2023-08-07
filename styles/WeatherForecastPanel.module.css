@@ -1,0 +1,24 @@
+.forecast_panel_container {
+  padding-top: 0.5rem;
+}
+.forecast_panel_header {
+  font-weight: 600;
+  color: rgb(31 41 55);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.forecast_cards_container {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: scroll;
+  padding-top: 2rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar_hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar_hide::-webkit-scrollbar {
+  display: none;
+}

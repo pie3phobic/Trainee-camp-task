@@ -5,3 +5,14 @@
   padding-top: 0.75rem;
   color: rgb(107 114 128);
 }
+.arrow {
+  height: 1.5rem;
+  transition: transform 200ms ease-in-out;
+  border-radius: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.arrow:hover {
+  transform: scale(1.1);
+  background-color: rgb(226 232 240);
+}

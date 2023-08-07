@@ -4,6 +4,7 @@ import useSmoothScroll from "../hooks/useSmoothScroll";
 import { TripProps } from "../types";
 import Controls from "./Controls";
 import { PlusIcon } from "@heroicons/react/outline";
+import styles from "../styles/TripContainer.module.css";
 interface TripContainerProps {
   filteredTrips: TripProps[];
   handleTripClick: (trip: TripProps) => void;
@@ -19,11 +20,11 @@ const TripContainer: React.FC<TripContainerProps> = ({
   const { scrollLeft, scrollRight } = useSmoothScroll();
   return (
     <div>
-      <div className="flex gap-5 flex-1">
+      <div className={styles.container_div}>
         <div
           id="tripContainer"
           ref={tripsContainerRef}
-          className="overflow-x-scroll space-x-6 scrollbar-hide flex transition-transform duration-300 ease-linear"
+          className={`${styles.trip_container} ${styles.scrollbar_hide} ${styles.transition_transform}`}
         >
           {filteredTrips.map((trip) => (
             <div key={trip.city} onClick={() => handleTripClick(trip)}>
@@ -31,12 +32,9 @@ const TripContainer: React.FC<TripContainerProps> = ({
             </div>
           ))}
         </div>
-        <div
-          className="bg-gray-300 min-w-[170px] mt-2 h-[150px] flex flex-col items-center justify-center cursor-pointer"
-          onClick={openModal}
-        >
-          <PlusIcon className="h-6" />
-          <p className="font-semibold rounded-2xl">Add Trip</p>
+        <div className={styles.add_trip_button} onClick={openModal}>
+          <PlusIcon className={styles.plus_icon} />
+          <p className={styles.add_trip_button_label}>Add Trip</p>
         </div>
       </div>
       <Controls
