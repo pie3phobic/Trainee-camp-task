@@ -2,8 +2,8 @@ const initialState = {
   trips: [
     {
       city: "London",
-      startDate: "2023-08-10",
-      endDate: "2023-08-15",
+      startDate: "2023-08-19",
+      endDate: "2023-08-21",
       imageUrl:
         "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
     },
