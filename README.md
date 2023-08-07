@@ -16,14 +16,14 @@ This project was made with a framework for React.JS - Next.JS.
 - Choose a city from a predefined list that icludes 30 cities.
 - Enter the start date of the trip (the start date is within the next 15 days).
 - Enter the end date of the trip (the end date is within the next 15 days).
-Upon clicking "Done," the trip will be added to the list. Modal looks like exactly as the design that was sent for this task.
+Upon clicking "Done," the trip will be added to the list. Modal looks exactly like as the design that was sent for this task.
 8. On the right side of the page:
 - When user selects a trip, today's weather forecast for that city will be displayed.
 - There also is a countdown timer from the current date to the start date of the trip.
 
 ## Completed Bonus tasks:
 1. Implemented next and previous buttons for the trips list and week's weather forecast list to handle scrolling better if div is overflown with content.
-2. When user adds a trip to the list all list is sorted based on the trip's start date.
+2. When user adds a trip to the list the whole list is sorted based on the trip's start date.
 3. Implemented login through Google account using NextAuth: https://next-auth.js.org/getting-started/introduction
 4. Implemented store for trips and the store is permanent meaning that even after full page reload happens, saved trips and their data will be accessible.
 
