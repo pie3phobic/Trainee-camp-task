@@ -42,7 +42,7 @@ const RightPanel: React.FC<RightPanelProps> = ({
     <div
       className={`${
         isDay ? "bg-day-pattern" : "bg-night-pattern"
-      } bg-cover w-[400px] h-[115vh] flex flex-col justify-center items-center`}
+      } bg-cover w-[580px] mr-10 md:mr-0 h-[400px] md:w-[400px] md:h-[115vh] flex flex-col justify-center items-center`}
     >
       {selectedTrip && weatherToday && (
         <div className={styles.right_container}>

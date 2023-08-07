@@ -31,16 +31,16 @@ const CustomModal: React.FC<ModalProps> = ({
           <XIcon className={styles.x_icon} onClick={onClose} />
         </div>
         <label htmlFor="city" className={styles.city_label}>
-          <span className="text-red-500">* </span>City
+          <span className={styles.span}>* </span>City
         </label>
-        <div className="px-5">
+        <div className={styles.custom_dropdown_div}>
           <CustomDropdown
             selectedValue={newTrip.city}
             onChange={(city) => onChange({ ...newTrip, city })}
           />
         </div>
         <label htmlFor="startDate" className={styles.date_input_label}>
-          <span className="text-red-500">* </span>Start date
+          <span className={styles.span}>* </span>Start date
         </label>
         <input
           type="date"
@@ -54,7 +54,7 @@ const CustomModal: React.FC<ModalProps> = ({
           required
         />
         <label htmlFor="endDate" className={styles.date_input_label}>
-          <span className="text-red-500">* </span>End date
+          <span className={styles.span}>* </span>End date
         </label>
         <input
           type="date"
