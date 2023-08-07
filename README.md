@@ -11,15 +11,15 @@ This project was made with a framework for React.JS - Next.JS.
 2. Upon starting the application, user will see one starting trip to London. The list is scrollable either by using mouse or navigating by using arrow buttons.
 3. When user selects a trip from the list, a forecast for each day of the trip is displayed.
 4. On the top:
-a. There is a searchbar to search among all trips.
-5. The app includes a button for adding a new trip. When the user clicks on "Add trip" a modal window will appear. Inside the modal, the user has the ability to:
-a. Choose a city from a predefined list that icludes 30 cities.
-b. Enter the start date of the trip (the start date is within the next 15 days).
-c. Enter the end date of the trip (the end date is within the next 15 days).
+- There is a searchbar to search among all trips.
+6. The app includes a button for adding a new trip. When the user clicks on "Add trip" a modal window will appear. Inside the modal, the user has the ability to:
+- Choose a city from a predefined list that icludes 30 cities.
+- Enter the start date of the trip (the start date is within the next 15 days).
+- Enter the end date of the trip (the end date is within the next 15 days).
 Upon clicking "Done," the trip will be added to the list. Modal looks like exactly as the design that was sent for this task.
-6. On the right side of the page:
-a. When user selects a trip, today's weather forecast for that city will be displayed.
-b. There also is a countdown timer from the current date to the start date of the trip.
+8. On the right side of the page:
+- When user selects a trip, today's weather forecast for that city will be displayed.
+- There also is a countdown timer from the current date to the start date of the trip.
 
 ## Completed Bonus tasks:
 1. Implemented next and previous buttons for the trips list and week's weather forecast list to handle scrolling better if div is overflown with content.
