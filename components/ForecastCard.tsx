@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ForecastProps } from "../types";
+import styles from "../styles/ForecastCard.module.css";
 
 const ForecastCard: React.FC<ForecastProps> = (day) => {
   const weekdays = [
@@ -26,12 +27,15 @@ const ForecastCard: React.FC<ForecastProps> = (day) => {
     }
   }, [day.icon]);
   return (
-    <div className="min-w-[100px] h-[120px] flex flex-col items-center justify-center">
-      <p className="text-xs text-gray-500">
+    <div className={styles.card_container}>
+      <p className={styles.card_weekday}>
         {weekdays[new Date(day.datetime).getDay()]}
       </p>
       {imageWeather && (
-        <img src={`${imageWeather}-with-no-bg.png`} className="w-[60px] py-3" />
+        <img
+          src={`${imageWeather}-with-no-bg.png`}
+          className={styles.card_image_weather}
+        />
       )}
       <p>
         {Math.round(day.tempmax)}°/{Math.round(day.tempmin)}°

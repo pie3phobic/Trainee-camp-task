@@ -6,6 +6,7 @@ type RightPanelProps = {
   selectedTrip: TripProps | null;
   weatherToday: WeatherProps | null;
 };
+import styles from "../styles/RightPanel.module.css";
 
 const RightPanel: React.FC<RightPanelProps> = ({
   selectedTrip,
@@ -36,7 +37,7 @@ const RightPanel: React.FC<RightPanelProps> = ({
     } else if (weatherToday?.days[0].icon.includes("overcast")) {
       setImageWeather("overcast");
     }
-  }, [weatherToday?.days[0].icon]); // Only run when day.icon changes
+  }, [weatherToday?.days[0].icon]);
   return (
     <div
       className={`${
@@ -44,18 +45,18 @@ const RightPanel: React.FC<RightPanelProps> = ({
       } bg-cover w-[400px] h-[115vh] flex flex-col justify-center items-center`}
     >
       {selectedTrip && weatherToday && (
-        <div className="flex flex-col items-center">
-          <h2 className="text-white font-semibold text-3xl">
+        <div className={styles.right_container}>
+          <h2 className={styles.right_weekday}>
             {weekdays[new Date(weatherToday.days[0].datetime).getDay()]}
           </h2>
-          <div className="flex my-4">
-            <img src={`${imageWeather}-with-no-bg.png`} className="w-[60px]" />
-            <p className="text-5xl text-white">{weatherToday.days[0].temp}</p>
-            <p className="text-lg text-white">°C</p>
+          <div className={styles.right_weather_container}>
+            <img src={`${imageWeather}-with-no-bg.png`} width="60px" />
+            <p className={styles.right_weather_temperature}>
+              {weatherToday.days[0].temp}
+            </p>
+            <p className={styles.right_weather_degrees}>°C</p>
           </div>
-          <p className="text-white text-2xl font-light">
-            {weatherToday.address}
-          </p>
+          <p className={styles.right_city}>{weatherToday.address}</p>
           <CountdownTimer startDate={selectedTrip.startDate} />
         </div>
       )}

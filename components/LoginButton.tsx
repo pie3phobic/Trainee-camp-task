@@ -1,20 +1,18 @@
 import React from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import styles from "../styles/Login.module.css";
 
 const LoginButton: React.FC = () => {
   const { data: session } = useSession();
   return (
     <div>
       {session ? (
-        <div className="mr-2 flex flex-col items-end font-semibold text-gray-800">
+        <div className={styles.login_container}>
           <div className="flex">
-            <p className="text-lg pt-1 mr-3">Welcome, {session.user.name}</p>
-            <img src={session.user.image} className="w-[40px] rounded-full" />
+            <p className={styles.user_name}>Welcome, {session.user.name}</p>
+            <img src={session.user.image} className={styles.user_image} />
           </div>
-          <p
-            className="font-base hover:cursor-pointer text-xs underline text-gray-500"
-            onClick={() => signOut()}
-          >
+          <p className={styles.signout_button} onClick={() => signOut()}>
             Logout
           </p>
         </div>
