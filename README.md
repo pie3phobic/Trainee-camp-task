@@ -27,7 +27,7 @@ b. There also is a countdown timer from the current date to the start date of th
 3. Implemented login through Google account using NextAuth: https://next-auth.js.org/getting-started/introduction
 4. Implemented store for trips and the store is permanent meaning that even after full page reload happens, saved trips and their data will be accessible.
 
-##Results:
+## Results:
 - Day version of loaded app (7am to 7 pm - 07 to 19):
 ![trip-app-sand vercel app_ (2)](https://github.com/pie3phobic/Trainee-camp-task/assets/115817261/a9c6ab15-7080-4bdf-938d-31144fc2aa96)
 - Evening version of loaded app (7pm to 7 pm):
