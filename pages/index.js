@@ -68,7 +68,6 @@ export default function Home() {
   const filteredTrips = trips.trips.filter((trip) =>
     trip.city.toLowerCase().includes(searchInput.toLowerCase())
   );
-  console.log(weatherForecast);
   return (
     <div>
       <Head>

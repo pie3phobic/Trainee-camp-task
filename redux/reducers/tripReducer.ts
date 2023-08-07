@@ -13,10 +13,7 @@ const initialState = {
 const tripsReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_TRIP":
-      // Add the new trip to the trips array
       const updatedTrips = [...state.trips, action.payload];
-
-      // Sort the updated trips array based on start dates
       updatedTrips.sort((a, b) => {
         //@ts-ignore
         return new Date(a.startDate) - new Date(b.startDate);
