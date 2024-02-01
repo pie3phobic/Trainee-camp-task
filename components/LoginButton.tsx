@@ -5,7 +5,8 @@ import styles from "../styles/Login.module.css";
 const LoginButton: React.FC = () => {
   const { data: session } = useSession();
   return (
-    <div>
+    <div className="flex flex-col items-center">
+      <p className="text-xs">*API key temporarily expired</p>
       {session ? (
         <div className={styles.login_container}>
           <div className={styles.login_main_content}>
